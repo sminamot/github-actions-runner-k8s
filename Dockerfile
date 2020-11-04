@@ -24,7 +24,7 @@ RUN apt-get update \
     && cd sops/cmd/sops \
     && go install
 
-FROM sminamot/github-actions-runner:2.273.5
+FROM sminamot/github-actions-runner:2.273.6
 
 ARG KUBECTL_VERSION
 
