@@ -32,10 +32,12 @@ jobs:
           KUBECTL_VERSION=$(<kubectl-version)
           KUSTOMIZE_VERSION=$(<kustomize-version)
           SOPS_VERSION=$(<sops-version)
+          BASE_VERSION=$(<github-actions-runner-version)
           docker buildx build \
             --build-arg KUBECTL_VERSION=$KUBECTL_VERSION \
             --build-arg KUSTOMIZE_VERSION=$KUSTOMIZE_VERSION \
             --build-arg SOPS_VERSION=$SOPS_VERSION \
+            --build-arg BASE_VERSION=$BASE_VERSION \
             --push \
             --platform linux/arm/v7,linux/amd64 \
             -t ${{ github.repository }}:latest \

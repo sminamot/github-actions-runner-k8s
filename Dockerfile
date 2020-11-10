@@ -1,3 +1,5 @@
+ARG BASE_VERSION
+
 # build kustomize
 FROM golang:1.14 as build-kustomize
 
@@ -24,7 +26,7 @@ RUN apt-get update \
     && cd sops/cmd/sops \
     && go install
 
-FROM sminamot/github-actions-runner:2.274.0
+FROM sminamot/github-actions-runner:${BASE_VERSION}
 
 ARG KUBECTL_VERSION
 
