@@ -9,7 +9,7 @@ RUN apt-get update \
     && apt-get install -y git \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
-    && git clone https://github.com/kubernetes-sigs/kustomize.git -b v${KUSTOMIZE_VERSION} \
+    && git clone --depth 1 https://github.com/kubernetes-sigs/kustomize.git -b v${KUSTOMIZE_VERSION} \
     && cd kustomize/kustomize \
     && go install
 
@@ -22,7 +22,7 @@ RUN apt-get update \
     && apt-get install -y git \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
-    && git clone https://github.com/mozilla/sops.git -b v${SOPS_VERSION} \
+    && git clone --depth 1 https://github.com/mozilla/sops.git -b v${SOPS_VERSION} \
     && cd sops/cmd/sops \
     && go install
 
