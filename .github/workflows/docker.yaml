@@ -27,12 +27,24 @@ jobs:
           # use tag for image_tag, 'v1.2.3' -> '1.2.3'
           IMAGE_TAG=${GITHUB_REF##*/v}
           echo "IMAGE_TAG=${IMAGE_TAG}" >> $GITHUB_ENV
+          KUBECTL_VERSION=$(<kubectl-version)
+          echo "KUBECTL_VERSION=${KUBECTL_VERSION}" >> $GITHUB_ENV
+          KUSTOMIZE_VERSION=$(<kustomize-version)
+          echo "KUSTOMIZE_VERSION=${KUSTOMIZE_VERSION}" >> $GITHUB_ENV
+          SOPS_VERSION=$(<sops-version)
+          echo "SOPS_VERSION=${SOPS_VERSION}" >> $GITHUB_ENV
+          BASE_VERSION=$(<github-actions-runner-version)
+          echo "BASE_VERSION=${BASE_VERSION}" >> $GITHUB_ENV
 
       - name: Build and push
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          build-args: GITHUB_RUNNER_VERSION=${{ env.GITHUB_RUNNER_VERSION }}
+          build-args: |
+            KUBECTL_VERSION=${{ env.KUBECTL_VERSION }}
+            KUSTOMIZE_VERSION=${{ env.KUSTOMIZE_VERSION }}
+            SOPS_VERSION=${{ env.SOPS_VERSION }}
+            BASE_VERSION=${{ env.BASE_VERSION }}
           platforms: linux/arm/v7,linux/amd64
           push: true
           tags: ${{ github.repository }}:latest,${{ github.repository }}:${{ env.IMAGE_TAG }}
